@@ -4,24 +4,25 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"os/exec"
 	"path/filepath"
 
-	"github.com/yourusername/llama-server/config"
-	"github.com/yourusername/llama-server/processmanager"
+	"github.com/popovpsk/llama-manager/config"
+	"github.com/popovpsk/llama-manager/processmanager"
 )
 
 type Server struct {
-	cfg    *config.Config
-	pm     *processmanager.ProcessManager
-	tmpl   *template.Template
+	cfg  *config.Config
+	pm   *processmanager.ProcessManager
+	tmpl *template.Template
 }
 
 func NewServer(cfg *config.Config, pm *processmanager.ProcessManager) *Server {
 	tmpl := template.Must(template.ParseFiles(filepath.Join("templates", "index.html")))
 	return &Server{
-		cfg:    cfg,
-		pm:     pm,
-		tmpl:   tmpl,
+		cfg:  cfg,
+		pm:   pm,
+		tmpl: tmpl,
 	}
 }
 
