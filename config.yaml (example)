@@ -1,0 +1,5 @@
+runs:
+  - name: "llama-7b"
+    cmd: "cd /path/to/llama.cpp && ./main -m models/7B.ggmlv3.q4_K_M -p 'Hello, my name is' -n 128"
+  - name: "llama-13b"
+    cmd: "cd /path/to/llama.cpp && ./main -m models/13B.ggmlv3.q4_K_M -p 'Hello, my name is' -n 128"

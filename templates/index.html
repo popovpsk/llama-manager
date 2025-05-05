@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LLaMA Model Manager</title>
+</head>
+<body>
+    <h1>LLaMA Model Manager</h1>
+    
+    <div>
+        <h2>Available Models</h2>
+        <ul>
+            {{range .}}
+            <li>
+                <button onclick="startRun('{{.Name}}')">{{.Name}}</button>
+            </li>
+            {{end}}
+        </ul>
+    </div>
+
+    <div>
+        <h2>Actions</h2>
+        <button onclick="stopRun()">Stop Current Model</button>
+    </div>
+
+    <script>
+        function startRun(name) {
+            fetch(`/run?name=${name}`)
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function stopRun() {
+            fetch('/stop')
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
