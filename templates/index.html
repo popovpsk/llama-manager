@@ -12,12 +12,34 @@
     body {
       margin: 0;
       font-family: 'Roboto', sans-serif;
+      background-color: #121212; /* Dark background for the whole page */
+      color: #e0e0e0; /* Light text color */
     }
     .mdl-layout__content {
       padding: 24px;
     }
     .mdl-card {
       margin-bottom: 24px;
+      background-color: #1e1e1e; /* Darker card background */
+      border-radius: 8px; /* Rounded corners for cards */
+    }
+    .mdl-card__title-text {
+      color: #ffffff; /* White title text */
+    }
+    .mdl-card__supporting-text {
+      color: #bdbdbd; /* Lighter grey text for supporting text */
+    }
+    .mdl-button {
+        border-radius: 18px; /* Rounded buttons */
+        padding: 0 20px; /* Slightly increase horizontal padding */
+        height: 36px; /* Standard Material height */
+        line-height: 36px; /* Ensure text is vertically centered */
+        white-space: nowrap; /* Prevent button text wrapping */
+        overflow: hidden; /* Hide overflow */
+        text-overflow: ellipsis; /* Add ellipsis if text is too long */
+        max-width: 100%; /* Ensure button does not exceed its container */
+        display: inline-block; /* Needed for text-overflow */
+        vertical-align: middle; /* Align with potential icons */
     }
     .mdl-button--raised {
       margin-right: 8px;
@@ -25,21 +47,58 @@
     .footer {
       text-align: center;
       padding: 16px;
-      background-color: #f5f5f5;
+      background-color: #1e1e1e; /* Dark footer background */
+      color: #bdbdbd; /* Lighter grey text for footer */
       margin-top: 24px;
     }
-    .mdl-list__item-text-body {
-      font-size: 0.9em;
-      color: #555;
+    .mdl-list__item {
+        display: flex; /* Use flexbox for better alignment */
+        align-items: center; /* Center items vertically */
+        padding: 16px; /* Increase padding */
     }
+    .mdl-list__item-primary-content {
+        flex-shrink: 0; /* Prevent button from shrinking */
+        margin-right: 16px; /* Add space between button and description */
+        max-width: 220px; /* Limit button container width */
+        text-align: center; /* Center the button if container is wider */
+    }
+    .mdl-list__item-secondary-content {
+        flex-grow: 1; /* Allow description to take remaining space */
+        min-width: 0; /* Prevent overflow issues with flex */
+    }
+    .mdl-list__item-text-body {
+      font-size: 1em; /* Slightly larger description text */
+      color: #bdbdbd; /* Lighter grey text */
+      white-space: normal; /* Allow text to wrap */
+      word-wrap: break-word; /* Break long words if necessary */
+    }
+    /* Adjust MDL default colors for dark theme */
+    .mdl-layout.is-upgraded .mdl-layout__header,
+    .mdl-layout.is-upgraded .mdl-layout__drawer {
+        background-color: #212121; /* Darker header/drawer */
+    }
+    .mdl-layout-title,
+    .mdl-layout__header .mdl-navigation__link {
+        color: #ffffff; /* White text in header */
+    }
+    .mdl-button--accent.mdl-button--accent { /* Specificity needed */
+        background-color: #bb86fc; /* Material Design dark theme accent */
+        color: #000000; /* Black text on accent button */
+    }
+    .mdl-button--raised.mdl-button--colored {
+        background-color: #03dac6; /* Material Design dark theme primary variant */
+        color: #000000; /* Black text on colored button */
+    }
+
   </style>
 </head>
 <body>
-  <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
-    <header class="mdl-layout__header mdl-color--indigo mdl-color-text--white">
+  <!-- Use a dark theme class if available, or rely on custom styles -->
+  <div class="mdl-layout mdl-js-layout"> <!-- Removed mdl-color--grey-100 -->
+    <header class="mdl-layout__header"> <!-- Removed mdl-color--indigo mdl-color-text--white -->
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">
-          <i class="material-icons">smart_toy</i> LLaMA Model Manager
+          <i class="material-icons" style="vertical-align: middle;">smart_toy</i> LLaMA Model Manager
         </span>
       </div>
     </header>
@@ -55,14 +114,15 @@
                 {{range .}}
                 <li class="mdl-list__item">
                   <span class="mdl-list__item-primary-content">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--indigo mdl-color-text--white"
+                    <!-- Use mdl-button--colored for primary action button -->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
                             onclick="startRun('{{.Name}}')">
                       {{.Name}}
                     </button>
                   </span>
                   <span class="mdl-list__item-secondary-content">
                     <span class="mdl-list__item-text-body">
-                      {{.Description}}
+                      {{if .Description}}{{.Description}}{{else}}No description provided.{{end}}
                     </span>
                   </span>
                 </li>
@@ -78,9 +138,10 @@
               <h2 class="mdl-card__title-text">Actions</h2>
             </div>
             <div class="mdl-card__supporting-text">
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--white"
+              <!-- Use mdl-button--accent for secondary/destructive action -->
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                       onclick="stopRun()">
-                <i class="material-icons">stop</i> Stop Current Model
+                <i class="material-icons" style="vertical-align: middle;">stop</i> Stop Current Model
               </button>
             </div>
           </div>
