@@ -22,7 +22,8 @@ func main() {
 	}
 
 	pm := processmanager.NewProcessManager()
-	srv := server.NewServer(cfg, pm)
+	// Pass the config path to the server
+	srv := server.NewServer(cfg, pm, *configPath)
 
 	// Handle graceful shutdown
 	c := make(chan os.Signal, 1)
