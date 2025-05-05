@@ -5,11 +5,15 @@ import (
 	"html/template"
 	"net/http"
 	"os/exec"
-	"path/filepath"
+
+	"embed"
 
 	"github.com/popovpsk/llama-manager/config"
 	"github.com/popovpsk/llama-manager/processmanager"
 )
+
+//go:embed ../templates/index.html
+var templateFS embed.FS
 
 type Server struct {
 	cfg  *config.Config
@@ -18,7 +22,7 @@ type Server struct {
 }
 
 func NewServer(cfg *config.Config, pm *processmanager.ProcessManager) *Server {
-	tmpl := template.Must(template.ParseFiles(filepath.Join("templates", "index.html")))
+	tmpl := template.Must(template.ParseFS(templateFS, "templates/index.html"))
 	return &Server{
 		cfg:  cfg,
 		pm:   pm,
