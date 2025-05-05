@@ -7,8 +7,9 @@ import (
 )
 
 type Run struct {
-	Name string `yaml:"name"`
-	Cmd  string `yaml:"cmd"`
+	Name        string `yaml:"name"`
+	Description string `yaml:"description"`
+	Cmd         string `yaml:"cmd"`
 }
 
 type Config struct {

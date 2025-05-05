@@ -1,5 +1,7 @@
 runs:
   - name: "llama-7b"
+    description: "A lightweight LLaMA model with 7 billion parameters, ideal for quick inference."
     cmd: "cd /path/to/llama.cpp && ./main -m models/7B.ggmlv3.q4_K_M -p 'Hello, my name is' -n 128"
   - name: "llama-13b"
+    description: "A more powerful LLaMA model with 13 billion parameters, suitable for complex tasks."
     cmd: "cd /path/to/llama.cpp && ./main -m models/13B.ggmlv3.q4_K_M -p 'Hello, my name is' -n 128"
