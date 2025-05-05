@@ -37,7 +37,7 @@ func (s *Server) Shutdown() {
 	s.pm.StopCurrent()
 }
 
-func (s *handleIndex) serveHTTP(w http.ResponseWriter, r *http.Request) {
+func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 	s.tmpl.Execute(w, s.cfg.Runs)
 }
 
