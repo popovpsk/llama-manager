@@ -7,9 +7,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/yourusername/llama-server/config"
-	"github.com/yourusername/llama-server/processmanager"
-	"github.com/yourusername/llama-server/server"
+	"github.com/popovpsk/llama-manager/config"
+	"github.com/popovpsk/llama-manager/processmanager"
+	"github.com/popovpsk/llama-manager/server"
 )
 
 func main() {

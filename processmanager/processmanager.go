@@ -1,7 +1,6 @@
 package processmanager
 
 import (
-	"os"
 	"os/exec"
 	"sync"
 )

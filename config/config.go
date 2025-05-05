@@ -1,7 +1,7 @@
 package config
 
 import (
-	"io"
+	"os"
 
 	"gopkg.in/yaml.v2"
 )
