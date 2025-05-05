@@ -5,14 +5,13 @@ import (
 	"html/template"
 	"net/http"
 	"os/exec"
-
 	"embed"
-
+	
 	"github.com/popovpsk/llama-manager/config"
 	"github.com/popovpsk/llama-manager/processmanager"
 )
 
-//go:embed ../templates/index.html
+//go:embed templates/index.html
 var templateFS embed.FS
 
 type Server struct {
