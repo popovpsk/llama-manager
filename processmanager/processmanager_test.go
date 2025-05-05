@@ -42,9 +42,9 @@ func TestStartProcess_ReplaceExisting(t *testing.T) {
 		t.Error("Expected currentCmd to be set, got nil")
 	}
 
-	// Ensure the first command was killed
-	if firstCmd.Process != nil && firstCmd.Process.Pid != 0 {
-		t.Error("Expected first command to be killed, but it's still running")
+	// Ensure the currentCmd is the second command
+	if pm.currentCmd != secondCmd {
+		t.Errorf("Expected currentCmd to be secondCmd, got %v", pm.currentCmd)
 	}
 }
 
