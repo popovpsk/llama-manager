@@ -3,7 +3,7 @@ runs:
     description: "10240 context, 17-20t/s, gpu only, top quality"
     cmd: "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen3-32B-Q4_K_M.gguf -ngl 99  -c 10240 --flash-attn --host 0.0.0.0"
   - name: "Qwen3-32B-Q4_K_M-32k"
-    description: "32768 context, 5-7t/s, gpu only, top quality, the biggest context"
+    description: "32768 context, 5-7t/s, cpu partially, top quality, the biggest context"
     cmd: "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen3-32B-Q4_K_M.gguf -ngl 52  -c 32768 --flash-attn --host 0.0.0.0"
   - name: "Qwen3-30b-A3B-Q5_K_L-10k"
     description: "10240 context, 80t/s, top speed"
