@@ -211,6 +211,12 @@
                       onclick="stopRun()">
                 <i class="material-icons" style="vertical-align: middle;">stop</i> Stop Current Model
               </button>
+              <br><br> <!-- Add some space -->
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                      style="background-color: #f44336; color: white;"
+                      onclick="confirmShutdownPC()">
+                <i class="material-icons" style="vertical-align: middle;">power_settings_new</i> Shutdown PC
+              </button>
             </div>
           </div>
         </div>
@@ -253,6 +259,24 @@
         .catch(error => {
           console.error('Error:', error);
           alert('Failed to stop model.');
+        });
+    }
+
+    function confirmShutdownPC() {
+      if (confirm("Are you sure you want to shut down the PC? This action cannot be undone.")) {
+        shutdownPC();
+      }
+    }
+
+    function shutdownPC() {
+      fetch('/shutdown')
+        .then(response => response.text())
+        .then(data => {
+          alert(data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Failed to send shutdown command.');
         });
     }
 
