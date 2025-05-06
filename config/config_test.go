@@ -6,7 +6,6 @@ import (
 )
 
 func TestLoad_ValidConfig(t *testing.T) {
-	// Create a temporary YAML file
 	yamlContent := `
 runs:
   - name: run1
@@ -53,7 +52,6 @@ func TestLoad_FileNotFound(t *testing.T) {
 }
 
 func TestLoad_InvalidYAML(t *testing.T) {
-	// Create a temporary YAML file with invalid content
 	yamlContent := `invalid: -`
 	tempFile, err := os.CreateTemp("", "config-*.yaml")
 	if err != nil {

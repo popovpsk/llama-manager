@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"os" // Added for reading the config file
+	"os"
 	"os/exec"
 
 	"github.com/popovpsk/llama-manager/config"
@@ -19,7 +19,7 @@ type Server struct {
 	cfg        *config.Config
 	pm         *processmanager.ProcessManager
 	tmpl       *template.Template
-	configPath string // Added config path
+	configPath string
 }
 
 func NewServer(cfg *config.Config, pm *processmanager.ProcessManager, configPath string) *Server {
@@ -28,7 +28,7 @@ func NewServer(cfg *config.Config, pm *processmanager.ProcessManager, configPath
 		cfg:        cfg,
 		pm:         pm,
 		tmpl:       tmpl,
-		configPath: configPath, // Store config path
+		configPath: configPath,
 	}
 }
 
@@ -36,8 +36,8 @@ func (s *Server) Start(addr string) error {
 	http.HandleFunc("/", s.handleIndex)
 	http.HandleFunc("/run", s.handleRun)
 	http.HandleFunc("/stop", s.handleStop)
-	http.HandleFunc("/config", s.handleConfig)     // Added config handler route
-	http.HandleFunc("/shutdown", s.handleShutdown) // Added shutdown handler route
+	http.HandleFunc("/config", s.handleConfig)
+	http.HandleFunc("/shutdown", s.handleShutdown)
 	return http.ListenAndServe(addr, nil)
 }
 
@@ -81,7 +81,7 @@ func (s *Server) handleConfig(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, fmt.Sprintf("Error reading config file: %v", err), http.StatusInternalServerError)
 		return
 	}
-	w.Header().Set("Content-Type", "text/yaml; charset=utf-8") // Indicate YAML content type
+	w.Header().Set("Content-Type", "text/yaml; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
 	w.Write(data)
 }
@@ -94,7 +94,7 @@ func (s *Server) handleShutdown(w http.ResponseWriter, r *http.Request) {
 	// Using 'systemctl poweroff' for Ubuntu.
 	// IMPORTANT: Ensure the server process has permissions to execute this (e.g., via sudoers).
 	// This is a potentially dangerous operation.
-	cmd := execCommand("systemctl", "poweroff") // Use the mockable variable
+	cmd := execCommand("systemctl", "poweroff")
 	err := cmd.Start()                          // Use Start for non-blocking, or Run for blocking
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error sending shutdown command: %v", err), http.StatusInternalServerError)
