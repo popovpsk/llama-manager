@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"html/template"
+	"io" // Added for io.Copy
 	"net/http"
 	"os"
 	"os/exec"
@@ -38,6 +39,7 @@ func (s *Server) Start(addr string) error {
 	http.HandleFunc("/stop", s.handleStop)
 	http.HandleFunc("/config", s.handleConfig)
 	http.HandleFunc("/shutdown", s.handleShutdown)
+	http.HandleFunc("/current-model", s.handleCurrentModel) // New route for current model
 	return http.ListenAndServe(addr, nil)
 }
 
@@ -84,6 +86,34 @@ func (s *Server) handleConfig(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/yaml; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
 	w.Write(data)
+}
+
+// handleCurrentModel fetches model information from the LLaMA server and proxies it.
+func (s *Server) handleCurrentModel(w http.ResponseWriter, r *http.Request) {
+	// Make a request to the LLaMA server's /v1/models endpoint
+	resp, err := http.Get("http://localhost:8080/v1/models")
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error contacting LLaMA server: %v", err), http.StatusInternalServerError)
+		return
+	}
+	defer resp.Body.Close()
+
+	// Copy headers from the LLaMA server's response to our response
+	for key, values := range resp.Header {
+		for _, value := range values {
+			w.Header().Add(key, value)
+		}
+	}
+
+	// Set the status code from the LLaMA server's response
+	w.WriteHeader(resp.StatusCode)
+
+	// Copy the body from the LLaMA server's response to our response
+	if _, err := io.Copy(w, resp.Body); err != nil {
+		// Log the error on the server side, client might have already received headers/status
+		fmt.Printf("Error copying LLaMA server response body: %v\n", err)
+		// Avoid writing an http.Error here if headers/status already sent
+	}
 }
 
 // handleShutdown attempts to shut down the PC.
