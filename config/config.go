@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 	"strings"
 
@@ -37,7 +38,7 @@ func (p *RunParams) BuildCommand() string {
 		parts = append(parts, "--flash-attn")
 	}
 	if p.TensorSplit != "" {
-		parts = append(parts, "--tensor-split", p.TensorSplit)
+		parts = append(parts, "--tensor-split", fmt.Sprintf("\"%s\"", p.TensorSplit))
 	}
 	if p.Priority != "" {
 		parts = append(parts, "--prio", p.Priority)

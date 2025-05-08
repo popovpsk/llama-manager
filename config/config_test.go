@@ -46,7 +46,7 @@ runs:
 
 	run := cfg.Runs[0]
 
-	expectedCmd := "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen3-32B-Q4_K_M.gguf -ngl 65 -c 13824 --flash-attn --tensor-split 45, 20 --prio 3 --temp 0.6 --min-p 0.0 --top-p 0.95 --top-k 20 --host 0.0.0.0"
+	expectedCmd := "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen3-32B-Q4_K_M.gguf -ngl 65 -c 13824 --flash-attn --tensor-split \"45, 20\" --prio 3 --temp 0.6 --min-p 0.0 --top-p 0.95 --top-k 20 --host 0.0.0.0"
 	if run.Params.BuildCommand() != expectedCmd {
 		t.Errorf("Expected command: %s, got: %s", expectedCmd, run.Params.BuildCommand())
 	}
