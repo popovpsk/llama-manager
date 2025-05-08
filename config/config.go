@@ -80,6 +80,19 @@ func Load(path string) (*Config, error) {
 		return nil, err
 	}
 
+	// Validate required fields
+	for _, run := range cfg.Runs {
+		if run.Params.ModelPath == "" {
+			return nil, fmt.Errorf("missing required field 'model_path' in run %s", run.Name)
+		}
+		if run.Params.NGLayers == "" {
+			return nil, fmt.Errorf("missing required field 'ngl' in run %s", run.Name)
+		}
+		if run.Params.ContextSize == "" {
+			return nil, fmt.Errorf("missing required field 'context_size' in run %s", run.Name)
+		}
+	}
+
 	return &cfg, nil
 }
 
