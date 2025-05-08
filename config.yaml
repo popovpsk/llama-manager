@@ -1,19 +1,16 @@
 runs:
-  - name: "Qwen3-32B-Q4_K_M-10k"
-    description: "10240 context, 17-20t/s, gpu only, top quality"
-    cmd: "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen3-32B-Q4_K_M.gguf -ngl 99  -c 10240 --flash-attn --host 0.0.0.0"
+  - name: "Qwen3-32B-Q4_K_M-13k"
+    description: "13824 context, 17-20t/s, gpu only, top quality"
+    cmd: 'cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen3-32B-Q4_K_M.gguf -ngl 65 -c 13824 --flash-attn --tensor-split "45, 20" --host 0.0.0.0'
   - name: "Qwen3-32B-Q4_K_M-32k"
     description: "32768 context, 5-7t/s, cpu partially, top quality, the biggest context"
     cmd: "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen3-32B-Q4_K_M.gguf -ngl 52  -c 32768 --flash-attn --host 0.0.0.0"
-  - name: "Qwen3-30b-A3B-Q5_K_L-10k"
-    description: "10240 context, 80t/s, top speed"
-    cmd: "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen_Qwen3-30B-A3B-Q5_K_L.gguf -ngl 99 -c 10240 --flash-attn --host 0.0.0.0"
+  - name: "Qwen3-30b-A3B-Q5_K_L-16k"
+    description: "16384 context, 60-80t/s, top speed"
+    cmd: 'cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen_Qwen3-30B-A3B-Q5_K_L.gguf -ngl 49 --tensor-split "33, 16" -c 16384 --flash-attn --host 0.0.0.0'
   - name: "Qwen3-30b-A3B-Q5_K_L-32k"
-    description: "32768 context, 30t/s, cpu partially, the fastest 32k context"
-    cmd: "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen_Qwen3-30B-A3B-Q5_K_L.gguf -ngl 43 -c 32768 --flash-attn --host 0.0.0.0"
-  - name: "gemma3-27b-it-qat-Q5_K_XL-8k"
-    description: "8192 context, 8-10t/s, cpu partially"
-    cmd: "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m gemma3-27/gemma-3-27b-it-qat-UD-Q5_K_XL.gguf -ngl 58 -c 8192 --flash-attn --host 0.0.0.0"
-  - name: "gemma3-27b-it-qat-Q5_K_XL-2k"
-    description: "2048 context, 16-20t/s, gpu onlu"
-    cmd: "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m gemma3-27/gemma-3-27b-it-qat-UD-Q5_K_XL.gguf -ngl 99 -c 2048 --flash-attn --host 0.0.0.0"
+    description: "32768 context, 20-30t/s, cpu partially, the fastest 32k context"
+    cmd: 'cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen_Qwen3-30B-A3B-Q5_K_L.gguf -ngl 45 --tensor-split "30, 15" -c 32768 --flash-attn --host 0.0.0.0'
+  - name: "gemma3-27b-it-qat-Q5_K_XL-6k"
+    description: "6144 context, 16-20t/s, gpu onlu"
+    cmd: 'cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m gemma3-27/gemma-3-27b-it-qat-UD-Q5_K_XL.gguf -ngl 99 --tensor-split "45, 18" -c 6144 --flash-attn --host 0.0.0.0'
