@@ -1,16 +1,71 @@
 runs:
   - name: "Qwen3-32B-Q4_K_M-13k"
     description: "13824 context, 17-20t/s, gpu only, top quality"
-    cmd: 'cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen3-32B-Q4_K_M.gguf -ngl 65 -c 13824 --flash-attn --tensor-split "45, 20" --prio 3 --temp 0.6 --min-p 0.0 --top-p 0.95 --top-k 20 --host 0.0.0.0'
+    params:
+      model_path: "Qwen3-32B-Q4_K_M.gguf"
+      ngl: "65"
+      context_size: "13824"
+      flash_attn: true
+      tensor_split: "45, 20"
+      prio: "3"
+      temp: "0.6"
+      min_p: "0.0"
+      top_p: "0.95"
+      top_k: "20"
+      host: "0.0.0.0"
   - name: "Qwen3-32B-Q4_K_M-32k"
     description: "32768 context, 5-7t/s, cpu partially, top quality, the biggest context"
-    cmd: "cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen3-32B-Q4_K_M.gguf -ngl 52  -c 32768 --flash-attn --prio 3 --temp 0.6 --min-p 0.0 --top-p 0.95 --top-k 20 --host 0.0.0.0"
+    params:
+      model_path: "Qwen3-32B-Q4_K_M.gguf"
+      ngl: "52"
+      context_size: "32768"
+      flash_attn: true
+      prio: "3"
+      temp: "0.6"
+      min_p: "0.0"
+      top_p: "0.95"
+      top_k: "20"
+      host: "0.0.0.0"
   - name: "Qwen3-30b-A3B-Q5_K_L-16k"
     description: "16384 context, 60-80t/s, top speed"
-    cmd: 'cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen_Qwen3-30B-A3B-Q5_K_L.gguf -ngl 49 --tensor-split "33, 16" -c 16384 --flash-attn --prio 3 --temp 0.6 --min-p 0.0 --top-p 0.95 --top-k 20 --host 0.0.0.0'
+    params:
+      model_path: "Qwen_Qwen3-30B-A3B-Q5_K_L.gguf"
+      ngl: "49"
+      context_size: "16384"
+      flash_attn: true
+      tensor_split: "33, 16"
+      prio: "3"
+      temp: "0.6"
+      min_p: "0.0"
+      top_p: "0.95"
+      top_k: "20"
+      host: "0.0.0.0"
   - name: "Qwen3-30b-A3B-Q5_K_L-32k"
     description: "32768 context, 20-30t/s, cpu partially, the fastest 32k context"
-    cmd: 'cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m Qwen_Qwen3-30B-A3B-Q5_K_L.gguf -ngl 45 --tensor-split "30, 15" -c 32768 --flash-attn --prio 3 --temp 0.6 --min-p 0.0 --top-p 0.95 --top-k 20 --host 0.0.0.0'
+    params:
+      model_path: "Qwen_Qwen3-30B-A3B-Q5_K_L.gguf"
+      ngl: "45"
+      context_size: "32768"
+      flash_attn: true
+      tensor_split: "30, 15"
+      prio: "3"
+      temp: "0.6"
+      min_p: "0.0"
+      top_p: "0.95"
+      top_k: "20"
+      host: "0.0.0.0"
   - name: "gemma3-27b-it-qat-Q5_K_XL-6k"
-    description: "6144 context, 16-20t/s, gpu onlu"
-    cmd: 'cd /home/aleksandr/repo/gguf/ && ../llama.cpp/build/bin/llama-server -m gemma3-27/gemma-3-27b-it-qat-UD-Q5_K_XL.gguf -ngl 99 --tensor-split "45, 18" -c 6144 --flash-attn --prio 3 --temp 1.0 --repeat-penalty 1.0 --min-p 0.01 --top-k 64 --top-p 0.95 --host 0.0.0.0'
+    description: "6144 context, 16-20t/s, gpu only"
+    params:
+      model_path: "gemma3-27/gemma-3-27b-it-qat-UD-Q5_K_XL.gguf"
+      ngl: "99"
+      context_size: "6144"
+      flash_attn: true
+      tensor_split: "45, 18"
+      prio: "3"
+      temp: "1.0"
+      repeat_penalty: "1.0"
+      min_p: "0.01"
+      top_k: "64"
+      top_p: "0.95"
+      host: "0.0.0.0"

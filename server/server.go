@@ -3,7 +3,7 @@ package server
 import (
 	"fmt"
 	"html/template"
-	"io" // Added for io.Copy
+	"io"
 	"net/http"
 	"os"
 	"os/exec"
@@ -13,7 +13,6 @@ import (
 	"github.com/popovpsk/llama-manager/templates"
 )
 
-// execCommand is a package-level variable that can be replaced by a mock in tests.
 var execCommand = exec.Command
 
 type Server struct {
@@ -39,7 +38,7 @@ func (s *Server) Start(addr string) error {
 	http.HandleFunc("/stop", s.handleStop)
 	http.HandleFunc("/config", s.handleConfig)
 	http.HandleFunc("/shutdown", s.handleShutdown)
-	http.HandleFunc("/current-model", s.handleCurrentModel) // New route for current model
+	http.HandleFunc("/current-model", s.handleCurrentModel)
 	return http.ListenAndServe(addr, nil)
 }
 
@@ -59,7 +58,7 @@ func (s *Server) handleRun(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cmd := exec.Command("bash", "-c", run.Cmd)
+	cmd := exec.Command("bash", "-c", run.Params.BuildCommand())
 	err := s.pm.StartProcess(cmd)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error starting run: %v", err), http.StatusInternalServerError)
